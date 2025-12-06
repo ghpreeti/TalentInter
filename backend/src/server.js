@@ -38,7 +38,9 @@ app.get("/", (req, res) => {
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("*", (req, res) => {
+  // For SPA client-side routing, return index.html for any unmatched route.
+  // Use regex pattern to avoid Express parsing errors with wildcard "*"
+  app.get(/^\/(?!api\/)/, (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
