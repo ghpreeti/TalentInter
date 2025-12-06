@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 // app.use(clerkMiddleware()); // this adds auth field to request object: req.auth()
 
-app.use("/api/inngest", serve({ client: inngest, functions}));
+app.use("/api/inngest", serve({ client: inngest, functions},{ signingKey: ENV.INNGEST_SIGNING_KEY }));
 // app.use("/api/chat", chatRoutes);
 // app.use("/api/sessions", sessionRoutes);
 
