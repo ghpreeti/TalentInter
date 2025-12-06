@@ -16,8 +16,9 @@ app.use(express.json());
 //creadentials:true?? => server allow browser to include cookies to be sent in cross-origin requests
 app.use(cors({origin:ENV.CLIENT_URL,credentials:true}));
 
-// mount inngest endpoint (no `functions` object available here)
-app.use("/api/inngest", serve({ client: inngest }))
+// mount inngest endpoint. Inngest expects a `functions` option (array),
+// so pass an empty array if you don't have functions to register here.
+app.use("/api/inngest", serve({ client: inngest, functions: [] }))
 
 app.get('/health', (req, res) => {
   res.status(200).json({msg:'Hello, World!'});
