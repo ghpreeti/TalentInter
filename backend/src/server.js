@@ -30,9 +30,10 @@ if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
   // For SPA client-side routing, return index.html for any unmatched route.
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+   app.get("/{*any}", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
+
 }
 
 
