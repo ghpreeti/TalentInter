@@ -20,7 +20,11 @@ const syncUser = inngest.createFunction(
 
       await User.create(newUser);
 
-        // todo:something
+      await upsertStreamUser({
+      id: newUser.clerkId.toString(),
+      name: newUser.name,
+      image: newUser.profileImage,
+    });
   }
 )
 
@@ -29,10 +33,11 @@ const deleteUser = inngest.createFunction(
   {event: "clerk/user.deleted"},
   async({event}) => {
       await connectDB();
+
       const {id} = event.data;
         await User.deleteOne({clerkId: id});
 
-     // todo:something
+      await deleteStreamUser(id.toString());
   }
 )
 
